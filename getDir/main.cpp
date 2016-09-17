@@ -2,6 +2,8 @@
 #include <QApplication>
 #include <QDebug>
 
+QList<QString> getChildList(const QString & dirPath,QList<QString>& videofileLists);
+
 //获取字符串最后的名称
 QString getFileName(const QString & path)
 {
@@ -24,105 +26,77 @@ QString getParentPath(const QString &path)
     return parentPth;
 }
 
+//getParentList
+
+QList<QString>  getParentList(const QString & Path,QList<QString>& videofileLists)
+{
+    QList<QString> parentList ;
+
+    QString tempPath = getParentPath(Path);
+
+    QString parentPath =getParentPath(tempPath);
+
+    parentList = getChildList(parentPath,videofileLists);
+
+    return parentList;
+
+
+}
 
 //combinString
 QString  getString(int num , QString str )
 {
-   QList<QString>  tempStrlist = str.split('/');
-   QString tempStr = "";
+    QList<QString>  tempStrlist = str.split('/');
+    QString tempStr = "";
 
-   for(int i = 0 ; i < num ; i++)
-   {
-       tempStr = tempStr + tempStrlist[i] +'/';
-   }
-//  qDebug()<<"tempStr is %s "<<tempStr;
-   return tempStr;
+    for(int i = 0 ; i < num ; i++)
+    {
+        tempStr = tempStr + tempStrlist[i] +'/';
+    }
+    //  qDebug()<<"tempStr is %s "<<tempStr;
+    return tempStr;
 }
 
 //getChildenPath
-//QList<QString> getChildPath(const QString & path,QList<QString>& videoList)
-//{
-
-//    QList<QString> tempVideolist ;
-
-//     QList<QString> splitList = path.split('/');
-
-//     int num = splitList.length();
-
-//     if(0 == num)
-//     {
-//         qDebug()<<"the path is root";
-
-//         QString tempPath1 = path+'/';
-
-
-
-//     }
-
-//   for(int i = 0 ; i < videoList.length();i++)
-//   {
-//       if((videoList[i].split('/').length() == num + 1) /*&& (0 == (path+'/').compare(getString(num,videoList[i])))*/ )
-//       {
-//           QString tempPath ="";
-
-//           for(int j = 0; j < num-1; j++ )
-//           {
-//             tempPath = tempPath + splitList[i]+'/';
-//           }
-
-//           tempPath =tempPath + splitList[num-1];
-
-//           if(!tempVideolist.contains(tempPath))
-//           {
-
-//               tempVideolist.push_back(tempPath);
-//           }
-
-//        }
-//   }
-
-//   return tempVideolist;
-//}
-//getChildenPath
-QList<QString> getChildPath(const QString & dirPath,QList<QString>& videofileLists)
+QList<QString> getChildList(const QString & dirPath,QList<QString>& videofileLists)
 {
     QList<QString> childrenlist ;
 
-      int num = dirPath.split('/').length();
+    int num = dirPath.split('/').length();
 
-        qDebug()<<"current path is  %s"<<dirPath;
+    qDebug()<<"current path is  %s"<<dirPath;
 
-          qDebug()<<"num is %d"<<num;
+    qDebug()<<"num is %d"<<num;
 
-            for(int j = 0 ;j < videofileLists.length() ;j++)
+    for(int j = 0 ;j < videofileLists.length() ;j++)
+    {
+        QList<QString> splitlist ;
+
+        QString tempPath = "";
+
+        splitlist = videofileLists[j].split('/');
+
+        if(splitlist.length() > num)
+        {
+            for(int i = 0;i < num ;i++)
             {
-                QList<QString> splitlist ;
+                tempPath = tempPath + splitlist[i]+'/';
+            }
 
-                QString tempPath = "";
+            if((dirPath+'/') == tempPath)
+            {
+                tempPath =tempPath + splitlist[num];
 
-                splitlist = videofileLists[j].split('/');
-
-                if(splitlist.length() > num)
+                if(!childrenlist.contains(tempPath))
                 {
-                    for(int i = 0;i < num ;i++)
-                    {
-                        tempPath = tempPath + splitlist[i]+'/';
-                    }
+                    childrenlist.push_back(tempPath);//
 
-                    if((dirPath+'/') == tempPath)
-                    {
-                        tempPath =tempPath + splitlist[num];
-
-                        if(!childrenlist.contains(tempPath))
-                        {
-                            childrenlist.push_back(tempPath);//
-
-//                            qDebug()<<"children file path is %s"<<tempPath;
-                        }
-                    }
+                    //                            qDebug()<<"children file path is %s"<<tempPath;
                 }
             }
-              return childrenlist;
+        }
+    }
+    return childrenlist;
 }
 
 //判断是否为文件夹
@@ -142,24 +116,24 @@ bool isFolder(const QString& lastString)
 //获取相对路径文件及文件夹
 QList<QString> getAllfile_RelativePath(const QString & path, QList<QString>& videolist )
 {
-   int length = path.length()+1;
-   QString  topPth = path+'/';
-   QList<QString> tempPth ;
-   QList<QString>::iterator iter = videolist.begin();
+    int length = path.length()+1;
+    QString  topPth = path+'/';
+    QList<QString> tempPth ;
+    QList<QString>::iterator iter = videolist.begin();
 
-   for(;iter < videolist.end(); iter++)
-   {
-      QString temp = *iter;
+    for(;iter < videolist.end(); iter++)
+    {
+        QString temp = *iter;
 
-      if(0 == topPth.compare(temp.left(length)))
-      {
-//          qDebug()<<"%s"<<temp;
+        if(0 == topPth.compare(temp.left(length)))
+        {
+            //          qDebug()<<"%s"<<temp;
 
-          tempPth.push_back(temp);
-      }
-   }
+            tempPth.push_back(temp);
+        }
+    }
 
-   return tempPth;
+    return tempPth;
 }
 
 //sort the list to put the directory in the front of  the list
@@ -174,7 +148,7 @@ QList<QString> sortList(QList<QString>& videolist)
     {
         if(isFolder(*iter1))
         {
-//            qDebug()<<"dir is "<<*iter1;
+            //            qDebug()<<"dir is "<<*iter1;
             tempList.push_back(*iter1);
         }
     }
@@ -183,7 +157,7 @@ QList<QString> sortList(QList<QString>& videolist)
     {
         if(!isFolder(*iter2))
         {
-//            qDebug()<<"file is "<<*iter2;
+            //            qDebug()<<"file is "<<*iter2;
             tempList.push_back(*iter2);
         }
     }
@@ -195,9 +169,9 @@ QList<QString> sortList(QList<QString>& videolist)
 void display( QList<QString>& videolist)
 {
 
-      QList<QString> tempList = sortList(videolist);
+    QList<QString> tempList = sortList(videolist);
 
-     QList<QString>::iterator iter = tempList.begin();
+    QList<QString>::iterator iter = tempList.begin();
 
     for(; iter < tempList.end() ; iter++)
     {
@@ -214,7 +188,7 @@ int main(int argc, char *argv[])
     QString dirPath = "home";
     QString dirPath1 = "home/jindong1/ctj";
     QString dirPath4 = "home/jindong2/ctj";
-    QString dirPath2 = "home/jindong2";
+    QString dirPath2 = "home/dangerous.mp4";
     QString dirPath3 = "home/jindong2/videos";
     QString path1 = "home/jindong/myheartWillgoOn.mp4";
     QString path2= "home/jindong/myheart.mp4";
@@ -264,7 +238,7 @@ int main(int argc, char *argv[])
     videofileLists.push_back(path18);
     videofileLists.push_back(path19);
 
-//所有文件夹列表
+    //所有文件夹列表
     QList<QString>videodirList;
 
     QList<QString>::iterator iter = videofileLists.begin();
@@ -281,25 +255,30 @@ int main(int argc, char *argv[])
 
     display(videodirList);
 
-//打印相关的文件夹下的文件
-//    for(int i = 0 ; i < videodirList.length();i++)
-//    {
+    //打印相关的文件夹下的文件
+    //    for(int i = 0 ; i < videodirList.length();i++)
+    //    {
 
-//        QList<QString> relativFileOrFile =  getAllfile_RelativePath(videodirList[i],videofileLists);
+    //        QList<QString> relativFileOrFile =  getAllfile_RelativePath(videodirList[i],videofileLists);
 
-//           display(relativFileOrFile);
-//    }
+    //           display(relativFileOrFile);
+    //    }
 
-//    getParentPath(videodirList[0]);
+    //    getParentPath(videodirList[0]);
 
-     qDebug()<<"current path is %s "<< videodirList[1];
-     qDebug()<<"parent path is %s "<< getParentPath(videodirList[1]);
+    qDebug()<<"current path is %s "<< videodirList[1];
+    qDebug()<<"parent path is %s "<< getParentPath(videodirList[1]);
 
-//     QList<QString> relativFileOrFile =  getAllfile_RelativePath( getParentPath(videodirList[0]),videofileLists);
-           QList<QString> list =  getChildPath(videodirList[1],videofileLists);
+    QList<QString> parentFile = getParentList(videodirList[1],videofileLists);
+
+    qDebug()<<"the parent file or dir is :\n ";
+
+    display(parentFile);
+
+    QList<QString> list =  getChildList(videodirList[1],videofileLists);
 
     qDebug()<<"the child file or dir is :\n ";
-        display(list);
+    display(list);
     return 0;
 }
 
