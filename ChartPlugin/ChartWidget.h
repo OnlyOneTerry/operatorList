@@ -38,28 +38,32 @@ struct  chartPosInfo
         this->time = data.time;
     }
 };
-#define  ROBOTMOVEINFO_PATH "./appInfo/robots/speeds.txt"
+#define  ROBOTMOVEINFO_PATH "appInfo/robots/speeds.txt"
 class ChartWidget : public CustomChildBaseDialog
 {
     Q_OBJECT
-
 public:
     explicit ChartWidget(QWidget *parent = 0);
     ~ChartWidget();
     //获取文件
-    void acquireData(QString path);
+    bool acquireData(QString path);
     //解析文件
     void parseData(QString str);
+    void parseDataInList(QString str);
     //获取最大value值
     double getMaxvalue(const QMap<qreal,qreal>& map);
     //获取最小value值
     double getMinvalue(const QMap<qreal,qreal>& map);
+    void show();
 protected:
     void closeEvent(QCloseEvent *event);
 signals:
     void sigClosedWidget();
-public slots:
-    void on_horizontalSlider_sliderMoved(int position);
+private slots:
+    void on_pushButton_load_clicked();
+
+    void on_checkBox_time_clicked(bool checked);
+
 private:
     Ui::ChartWidget *ui;
     QMap<qreal,qreal>m_xspeedMap;
@@ -70,7 +74,8 @@ private:
     ChartForm* wspeedChart=NULL;
     qreal startTime=0;
     int   m_index=0;
-    QList<QPointF> m_xspeedList;
+    //----------------------------
+    QMap<int,QList<qreal>>m_dataMap;
 };
 
 #endif // CHARTWIDGET_H

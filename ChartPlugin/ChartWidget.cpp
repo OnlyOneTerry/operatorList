@@ -1,48 +1,43 @@
 ﻿#include "ChartWidget.h"
 #include "ChartWidget.h"
 #include "ui_ChartWidget.h"
-#include <QDebug>
-#include<QFile>
+#include "RoLog.h"
+#include <QFile>
+#include<QDebug>
+#include<QFileDialog>
 ChartWidget::ChartWidget(QWidget *parent) :
     CustomChildBaseDialog(parent),
     ui(new Ui::ChartWidget)
 {
     ui->setupUi(this);
     //加载指定文件数据
-    acquireData(ROBOTMOVEINFO_PATH);
+//    acquireData(ROBOTMOVEINFO_PATH);
     this->resize(980,600);
-    //设置滚动条
-    ui->horizontalSlider->setMinimum(0);
-    ui->horizontalSlider->setMaximum(m_xspeedMap.count()-20);
-    //速度
-    QMap<qreal,qreal>::iterator xIter = m_xspeedMap.begin();
-    for(;xIter!=m_xspeedMap.end();xIter++)
-    {
-        m_xspeedList.append(QPointF(xIter.key(),xIter.value()));
-    }
+    this->d->showMinMaxButton();
     //转换QMap<qreal,qreal> tempMap ;
-    xspeedChart = new ChartForm(m_xspeedMap,
-                                getMinvalue(m_xspeedMap),
-                                getMaxvalue(m_xspeedMap),
-                                QStringLiteral("Vx速度"),
-                                QStringLiteral("时间[ms]"),
-                                QStringLiteral("vxspeed chart"));
-    yspeedChart = new ChartForm(m_yspeedMap,
-                                getMinvalue(m_yspeedMap),
-                                getMaxvalue(m_yspeedMap),
-                                QStringLiteral("Vy速度"),
-                                QStringLiteral("时间[ms]"),
-                                QStringLiteral("vyspeed chart"));
-    wspeedChart = new ChartForm(m_wspeedMap,
-                                getMinvalue(m_wspeedMap),
-                                getMaxvalue(m_wspeedMap),
-                                QStringLiteral("角速度"),
-                                QStringLiteral("时间[ms]"),
-                                QStringLiteral("wspeed chart"));
-    ui->verticalLayout->addWidget(xspeedChart);
-    ui->verticalLayout->addWidget(yspeedChart);
-    ui->verticalLayout->addWidget(wspeedChart);
+    //    xspeedChart = new ChartForm(m_xspeedMap,
+    //                                getMinvalue(m_xspeedMap),
+    //                                getMaxvalue(m_xspeedMap),
+    //                                QStringLiteral("Vx速度"),
+    //                                QStringLiteral("时间[ms]"),
+    //                                QStringLiteral("vxspeed chart"));
+    //    yspeedChart = new ChartForm(m_yspeedMap,
+    //                                getMinvalue(m_yspeedMap),
+    //                                getMaxvalue(m_yspeedMap),
+    //                                QStringLiteral("Vy速度"),
+    //                                QStringLiteral("时间[ms]"),
+    //                                QStringLiteral("vyspeed chart"));
+    //    wspeedChart = new ChartForm(m_wspeedMap,
+    //                                getMinvalue(m_wspeedMap),
+    //                                getMaxvalue(m_wspeedMap),
+    //                                QStringLiteral("角速度"),
+    //                                QStringLiteral("时间[ms]"),
+    //                                QStringLiteral("wspeed chart"));
+    //    ui->verticalLayout->addWidget(xspeedChart);
+    //    ui->verticalLayout->addWidget(yspeedChart);
+    //    ui->verticalLayout->addWidget(wspeedChart);
 
+    //将显示数据
 }
 
 ChartWidget::~ChartWidget()
@@ -56,26 +51,28 @@ void ChartWidget::closeEvent(QCloseEvent *event)
     emit sigClosedWidget();
 }
 
-void ChartWidget::acquireData(QString path)
+bool ChartWidget::acquireData(QString path)
 {
     qDebug()<<"path is ----------"<<path;
     QFile file(path);
-    if(file.open(QIODevice::ReadOnly))
+    if(!file.open(QIODevice::ReadOnly))
     {
-        //读取文件
-        while(!file.atEnd())
-        {
-            QByteArray line = file.readLine();
-            QString lineString(line);
-            parseData(lineString);
-        }
+        SCDebug<<file.errorString()<<path;
+        return false;
     }
-    else
+    //读取文件
+    m_dataMap.clear();
+    int i= 0;
+    while(!file.atEnd())
     {
-
+        QByteArray line = file.readLine();
+        QString lineString(line);
+        parseData(lineString);
+        parseDataInList(lineString);
     }
 
     file.close();
+    return true;
 }
 
 void ChartWidget::parseData(QString str)
@@ -108,6 +105,19 @@ void ChartWidget::parseData(QString str)
     m_index++;
 }
 
+void ChartWidget::parseDataInList(QString str)
+{
+    if(str.isEmpty())return;
+    QStringList tempList = str.split("\t");
+    if(tempList.size()>0)
+    {
+        for(int i= 0;i<tempList.size();i++)
+        {
+            m_dataMap[i].append(tempList.at(i).toDouble());
+        }
+    }
+}
+
 double ChartWidget::getMaxvalue(const QMap<qreal, qreal> &map)
 {
     QMap<qreal,qreal> tempMap ;
@@ -130,19 +140,45 @@ double ChartWidget::getMinvalue(const QMap<qreal, qreal> &map)
     return tempMap.firstKey();
 }
 
-void ChartWidget::on_horizontalSlider_sliderMoved(int position)
+void ChartWidget::show()
 {
-#if 0
-    if(position+20>m_xspeedList.count())return;
-    QVector<QPointF> templist;
-    for(int i = position; i<position+20;i++)
+//    int n = 0;
+    QMap<int,QList<qreal>>::iterator iter = m_dataMap.begin();
+    for(;iter!=m_dataMap.end();iter++)
     {
-        templist.append(QPointF(m_xspeedList.at(i).x(),m_xspeedList.at(i).y()));
+//        if(n>2)return;
+        QList<qreal> list = iter.value();
+        QMap<qreal,qreal> mapsort;
+        QMap<qreal,qreal> map;
+        for(int i =0;i<list.size();i++)
+        {
+            mapsort.insert(list.at(i),i);//用于对值排序
+            map.insert(i,list.at(i));
+        }
+        ChartForm* chart = new ChartForm(map,mapsort.firstKey(),
+                                         mapsort.lastKey(),
+                                         QStringLiteral("axisY"),
+                                         QStringLiteral("axisX"),
+                                         QStringLiteral(""));
+        ui->verticalLayout->addWidget(chart);
+//        n++;
     }
-    m_Speedchart->setTitle("xspeed chart");
-    m_SpeedaxisX->setRange(templist[0].x(),templist[19].x());
-    m_Speedchart->legend()->setVisible(true);
-    m_Speedchart->legend()->setAlignment(Qt::AlignBottom);
-    m_Speedlineseries->replace(templist);
-#endif
+}
+
+
+void ChartWidget::on_pushButton_load_clicked()
+{
+    QString fileName = QFileDialog::getOpenFileName(this,
+                                                    tr("Open Spreadsheet"), ".",
+                                                    tr("Spreadsheet files (*.txt)"));
+    if (!fileName.isEmpty())
+    {
+        acquireData(fileName);
+        show();
+    }
+}
+
+void ChartWidget::on_checkBox_time_clicked(bool checked)
+{
+
 }

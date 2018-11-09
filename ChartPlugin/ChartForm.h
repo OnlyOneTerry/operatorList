@@ -10,7 +10,7 @@
 #include <QtCharts/QValueAxis>
 #include"QWChartView.h"
 #include <QWidget>
-
+#define NUM 20
 namespace Ui {
 class ChartForm;
 }
@@ -23,6 +23,12 @@ public:
     ~ChartForm();
 public:
     void draw();
+    void drawEntire(bool isentrie);
+private slots:
+    void on_horizontalSlider_sliderMoved(int position);
+
+    void on_pushButton_entireOrpartial_clicked();
+
 private:
     Ui::ChartForm *ui;
     QWChartView *m_chartView;
@@ -44,6 +50,9 @@ private:
 
     //x,y对应的数据对
     QMap<qreal,qreal> m_map;
+    QList<QPointF> m_List;
+    //显示全局或局部
+    bool m_isEntire = true;
 };
 
 
