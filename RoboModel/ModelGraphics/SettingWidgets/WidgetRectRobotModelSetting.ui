@@ -1,0 +1,468 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WidgetRectRobotModelSetting</class>
+ <widget class="QWidget" name="WidgetRectRobotModelSetting">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>296</width>
+    <height>829</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>MoveMode</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_20">
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
+      <item>
+       <widget class="customComboBox" name="comboBox_moveType"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>ChasissType</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_21">
+      <property name="leftMargin">
+       <number>9</number>
+      </property>
+      <property name="topMargin">
+       <number>9</number>
+      </property>
+      <property name="rightMargin">
+       <number>9</number>
+      </property>
+      <property name="bottomMargin">
+       <number>9</number>
+      </property>
+      <item>
+       <widget class="customComboBox" name="comboBox_chassisType"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>Size</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label_width">
+          <property name="text">
+           <string>width:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_width">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QLabel" name="label_head">
+          <property name="text">
+           <string>head:m]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_head">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QLabel" name="label_tail">
+          <property name="text">
+           <string>tail:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_tail">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_4">
+        <item>
+         <widget class="QLabel" name="label_wheelRadius">
+          <property name="text">
+           <string>wheelRadius:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_wheelRadius">
+          <property name="decimals">
+           <number>4</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_5">
+        <item>
+         <widget class="QLabel" name="label_firstWheel_delta_angle_toPostiveDirction">
+          <property name="text">
+           <string>theta:[°]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_firstWheel_delta_angle_toPostiveDirction"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_16">
+        <item>
+         <widget class="QLabel" name="label_wheel_corePoint_distance">
+          <property name="text">
+           <string>Aaxis:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_corePoint_distance">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_6">
+        <item>
+         <widget class="QLabel" name="label_Aaxis">
+          <property name="text">
+           <string>Aaxis:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_Aaxis">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_7">
+        <item>
+         <widget class="QLabel" name="label_Baxis">
+          <property name="text">
+           <string>Baxis:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_Baxis">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_8">
+        <item>
+         <widget class="QLabel" name="label_steer_angle_min">
+          <property name="text">
+           <string>minAngle:[°]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customSpinBox" name="spinBox_steer_angle_min"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_9">
+        <item>
+         <widget class="QLabel" name="label_steer_angle_max">
+          <property name="text">
+           <string>maxAngle:[°]</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customSpinBox" name="spinBox_steer_angle_max"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_10">
+        <item>
+         <widget class="QLabel" name="label_absEncoderRange_min">
+          <property name="text">
+           <string>minAbsEncoder:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customSpinBox" name="spinBox_absEncoderRange_min"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_11">
+        <item>
+         <widget class="QLabel" name="label_absEncoderRange_max">
+          <property name="text">
+           <string>maxAbsEncoder:</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customSpinBox" name="spinBox_absEncoderRange_max"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_12">
+        <item>
+         <widget class="QLabel" name="label_absEncoderType">
+          <property name="text">
+           <string>absEncoderTyep</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="customComboBox" name="comboBox_absEncoderType"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Motor number and forward and reverse turn</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QWidget" name="widget_driver1" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_13">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="customSpinBox" name="spinBox_ID1"/>
+         </item>
+         <item>
+          <widget class="customComboBox" name="comboBox_inverse1"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>84</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_driver2" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_14">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="customSpinBox" name="spinBox_ID2"/>
+         </item>
+         <item>
+          <widget class="customComboBox" name="comboBox_inverse2"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_2">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_driver3" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_15">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="customSpinBox" name="spinBox_ID3"/>
+         </item>
+         <item>
+          <widget class="customComboBox" name="comboBox_inverse3"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_3">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+      <item>
+       <widget class="QWidget" name="widget_driver4" native="true">
+        <layout class="QHBoxLayout" name="horizontalLayout_19">
+         <property name="leftMargin">
+          <number>0</number>
+         </property>
+         <property name="topMargin">
+          <number>0</number>
+         </property>
+         <property name="rightMargin">
+          <number>0</number>
+         </property>
+         <property name="bottomMargin">
+          <number>0</number>
+         </property>
+         <item>
+          <widget class="customSpinBox" name="spinBox_ID4"/>
+         </item>
+         <item>
+          <widget class="customComboBox" name="comboBox_inverse4"/>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer_7">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>customComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>customDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>customSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

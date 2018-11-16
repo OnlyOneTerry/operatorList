@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WidgetForkSetting</class>
+ <widget class="QWidget" name="WidgetForkSetting">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>220</width>
+    <height>585</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>blockLaserDist:[m]</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customDoubleSpinBox" name="dbSpBox_blkLaserDist">
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>encoderSteps:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customSpinBox" name="spinBox_encoderSteps">
+       <property name="maximum">
+        <number>999999999</number>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_4">
+     <item>
+      <widget class="QLabel" name="label_4">
+       <property name="text">
+        <string>lengthFactor:[m]</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customDoubleSpinBox" name="dbSpBox_lengthFactor">
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_8">
+     <item>
+      <widget class="QLabel" name="label_12">
+       <property name="text">
+        <string>lengthPerTurn:[m]</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customDoubleSpinBox" name="dbSpinBox_lengthPerTurn">
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_9">
+     <item>
+      <widget class="QLabel" name="label_5">
+       <property name="text">
+        <string>maxHeight:[m]</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customDoubleSpinBox" name="dbSpinBox_maxHeight">
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_10">
+     <item>
+      <widget class="QLabel" name="label_6">
+       <property name="text">
+        <string>minHeight:[m]</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customDoubleSpinBox" name="dbSpinBox_minHeight">
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_11">
+     <item>
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>downBuffer:[m]</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customDoubleSpinBox" name="dbSpinBox_downBuffer">
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_12">
+     <item>
+      <widget class="QLabel" name="label_11">
+       <property name="text">
+        <string>upBuffer:[m]</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customDoubleSpinBox" name="dbSpinBox_upBuffer">
+       <property name="singleStep">
+        <double>0.010000000000000</double>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_5">
+     <item>
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>pressureSensor:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customComboBox" name="comboBox_pressureSensor"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>pump:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customComboBox" name="comboBox_pump"/>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_7">
+     <item>
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>type:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="customComboBox" name="comboBox_forkType"/>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>customComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>customDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>customSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WidgetUltrasonicSetting</class>
+ <widget class="QWidget" name="WidgetUltrasonicSetting">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>262</width>
+    <height>487</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <item>
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>Item</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_5">
+      <item>
+       <widget class="QLabel" name="label">
+        <property name="text">
+         <string>Ultrasionic</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_3">
+     <property name="title">
+      <string>id</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="customSpinBox" name="spinBox_id">
+        <property name="toolTip">
+         <string>范围[0,23]</string>
+        </property>
+        <property name="maximum">
+         <number>23</number>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_Prompt">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Setting</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_6">
+      <item>
+       <layout class="QFormLayout" name="formLayout_2">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_func">
+          <property name="toolTip">
+           <string>功能</string>
+          </property>
+          <property name="text">
+           <string>func</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="customComboBox" name="comboBox_func">
+          <property name="currentIndex">
+           <number>-1</number>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_minDist">
+          <property name="toolTip">
+           <string>最小有效距离</string>
+          </property>
+          <property name="text">
+           <string>minDist[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <item>
+           <widget class="customDoubleSpinBox" name="doubleSpinBox_minDist">
+            <property name="toolTip">
+             <string>范围[0,maxDist]</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
+            </property>
+            <property name="maximum">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_maxDist">
+          <property name="toolTip">
+           <string>最大有效距离</string>
+          </property>
+          <property name="text">
+           <string>maxDist[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_4">
+          <item>
+           <widget class="customDoubleSpinBox" name="doubleSpinBox_maxDist">
+            <property name="toolTip">
+             <string>范围[minDist,10]</string>
+            </property>
+            <property name="decimals">
+             <number>3</number>
+            </property>
+            <property name="maximum">
+             <double>10.000000000000000</double>
+            </property>
+            <property name="singleStep">
+             <double>0.010000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_range">
+          <property name="toolTip">
+           <string>探测范围角度</string>
+          </property>
+          <property name="text">
+           <string>range[°]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <layout class="QHBoxLayout" name="horizontalLayout_5">
+          <item>
+           <widget class="customDoubleSpinBox" name="doubleSpinBox_range">
+            <property name="toolTip">
+             <string>范围[0,360]</string>
+            </property>
+            <property name="maximum">
+             <double>360.000000000000000</double>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Location</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <layout class="QFormLayout" name="formLayout">
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_x">
+          <property name="toolTip">
+           <string>在机器人坐标系的 x 偏移</string>
+          </property>
+          <property name="text">
+           <string>x:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_x">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_y">
+          <property name="toolTip">
+           <string>在机器人坐标系的 y 偏移</string>
+          </property>
+          <property name="text">
+           <string>y:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_y">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_z">
+          <property name="toolTip">
+           <string>在机器人坐标系的 z 偏移</string>
+          </property>
+          <property name="text">
+           <string>z:[m]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="1">
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_z">
+          <property name="decimals">
+           <number>3</number>
+          </property>
+          <property name="minimum">
+           <double>-10.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>10.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>0.010000000000000</double>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="0">
+         <widget class="QLabel" name="label_r">
+          <property name="toolTip">
+           <string>在机器人坐标系的朝向角</string>
+          </property>
+          <property name="text">
+           <string>r:[°]</string>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="customDoubleSpinBox" name="doubleSpinBox_r">
+          <property name="toolTip">
+           <string>范围[-180,180]</string>
+          </property>
+          <property name="decimals">
+           <number>2</number>
+          </property>
+          <property name="minimum">
+           <double>-180.000000000000000</double>
+          </property>
+          <property name="maximum">
+           <double>180.000000000000000</double>
+          </property>
+          <property name="singleStep">
+           <double>1.000000000000000</double>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>customComboBox</class>
+   <extends>QComboBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>customDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+  <customwidget>
+   <class>customSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>ModelCustomWidget.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
