@@ -2,13 +2,12 @@
 #include "ui_CrashDiContentSetting.h"
 #include"RoLog.h"
 
-CrashDiContentSetting::CrashDiContentSetting(QWidget *parent) :
+CrashDiContentSetting::CrashDiContentSetting(int id, QWidget *parent) :
     BasicContentSetting(parent),
     ui(new Ui::CrashDiContentSetting)
 {
     ui->setupUi(this);
     initWidgetData();
-//    ui->label_prohibitPromt->setStyleSheet("color:red;");
     groupBoxList_.append(ui->groupBox_0);
     groupBoxList_.append(ui->groupBox_1);
     groupBoxList_.append(ui->groupBox_2);
@@ -28,7 +27,7 @@ CrashDiContentSetting::CrashDiContentSetting(QWidget *parent) :
     }
     ui->label_direction->setText(tr("set func"));
     this->resize(330,130);
-    this->setWindowTitle(tr("crashDI"));
+    this->setWindowTitle(tr("crashDI")+QString("  id:%1").arg(id));
 }
 
 CrashDiContentSetting::~CrashDiContentSetting()

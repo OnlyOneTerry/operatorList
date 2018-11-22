@@ -11,7 +11,7 @@ class DOContentSetting : public BasicContentSetting
     Q_OBJECT
 
 public:
-    explicit DOContentSetting(QWidget *parent = 0);
+    explicit DOContentSetting(int id,QWidget *parent = 0);
     ~DOContentSetting();
     void initWidgetData();
     ConfigureData  read_funcConfigFile();

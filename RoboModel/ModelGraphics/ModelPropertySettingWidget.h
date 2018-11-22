@@ -33,18 +33,17 @@ public:
     QUndoStack* getUndoStack();
     void mouseMoveEvent(QMouseEvent *event);
     void mousePressEvent(QMouseEvent *event);
+    bool event(QEvent *event);
     void showTopItemWid(ItemBase* item);
 private:
     Ui::ModelPropertySettingWidget *ui;
     WidgetModelSetting* item_infor_widget_;//infor widget
     QList<ItemBase *> selected_item_list_;
-
     QList<QListWidgetItem*> m_ori_itemlist;
     QList<QListWidgetItem*> m_new_itemlist;
-
     QUndoStack* m_unstack;
-
     QPoint m_lastMousePos;
+    bool m_bIsOnePoint = false;
     /*图层相关操作*/
 public:
     void update_layer(QList<ItemBase *> selected_item_list_);

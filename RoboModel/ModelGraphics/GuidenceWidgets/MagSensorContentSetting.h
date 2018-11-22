@@ -12,7 +12,7 @@ class MagSensorContentSetting : public BasicContentSetting
     Q_OBJECT
 
 public:
-    explicit MagSensorContentSetting(QWidget *parent = 0);
+    explicit MagSensorContentSetting(int id,QWidget *parent = 0);
     ~MagSensorContentSetting();
     void initWigetData();
  ConfigureData readConfigure_MagneticSensorType(const QString& filePath);

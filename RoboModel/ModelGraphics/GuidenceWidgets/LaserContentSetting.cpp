@@ -1,7 +1,7 @@
 ﻿#include "LaserContentSetting.h"
 #include "ui_LaserContentSetting.h"
 #include"RoLog.h"
-LaserContentSetting::LaserContentSetting(QWidget *parent) :
+LaserContentSetting::LaserContentSetting(int id, QWidget *parent) :
     BasicContentSetting(parent),
     ui(new Ui::LaserContentSetting),
     isValid_(false)
@@ -35,7 +35,7 @@ LaserContentSetting::LaserContentSetting(QWidget *parent) :
     }
      ui->label_direction->setText(tr("Set the installation order"));
      this->resize(330,130);
-     this->setWindowTitle(tr("Laser guide setting"));
+     this->setWindowTitle(tr("Laser guide setting")+QString("  id:%1").arg(id));
 //     ui->label_prohibitPromt->setStyleSheet("color:red;");
 }
 

@@ -197,7 +197,7 @@ void ItemCrashDI::mousePressEvent(QGraphicsSceneMouseEvent *event)
 
     //-----------------------引导设置窗
     if(1 == count) return;
-    crashDicontentSetting_ = new CrashDiContentSetting;
+    crashDicontentSetting_ = new CrashDiContentSetting(data_crashDi_.id_);
     connect(crashDicontentSetting_,SIGNAL(sig_finished()),SLOT(slot_guidconfig_finished()));
     crashDicontentSetting_->show();
     count++;

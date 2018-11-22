@@ -44,7 +44,7 @@ ItemLaser::ItemLaser(ModelGraphicsScene *scene,QJsonObject json):
         data_laser_.id_++;
     }
 
-    setToolTip(QString("ItemLser_%1").arg(data_laser_.id_));
+    setToolTip(tr("Laser")+QString("_%1").arg(data_laser_.id_));
     setID(data_laser_.id_);
 }
 
@@ -91,7 +91,7 @@ void ItemLaser::mousePressEvent(QGraphicsSceneMouseEvent *event)
     model_scene()->setCurrentPressItem(this);
     ItemBase::mousePressEvent (event);
     if(count == 1) return;
-    laserContentsetting_ = new LaserContentSetting;
+    laserContentsetting_ = new LaserContentSetting(data_laser_.id_);
     connect(laserContentsetting_,SIGNAL(sig_finished()),this,SLOT(slot_guidconfig_finished()));
     laserContentsetting_->show();
     count++;

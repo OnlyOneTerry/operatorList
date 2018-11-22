@@ -12,7 +12,7 @@ DIContentSetting::DIContentSetting(QWidget *parent) :
     isValid_ = ui->spinBox_range->value()>0?true:false;
 }
 
-DIContentSetting::DIContentSetting(ItemType type, QWidget *parent):
+DIContentSetting::DIContentSetting(ItemType type, int id, QWidget *parent):
     BasicContentSetting(parent),
     ui(new Ui::DIContentSetting),
     isValid_(false)
@@ -41,7 +41,7 @@ DIContentSetting::DIContentSetting(ItemType type, QWidget *parent):
     ui->ptb_previous->hide();
 
     this->resize(340,130);
-    this->setWindowTitle(tr("DI guidence Setting"));
+    this->setWindowTitle(tr("DI guidence Setting")+QString("  id:%1").arg(id));
 
 }
 

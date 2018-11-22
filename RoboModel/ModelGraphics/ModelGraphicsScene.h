@@ -44,6 +44,10 @@ public:
     bool isAlldevsOnChassis();
     bool isWithInChassisArea(qreal x, qreal y,bool isCrashDI=false);//是否在底盘区域内
     bool isGuidenceFinished();//如果是引导创建判断是否结束
+    qreal getDistanceBetweenTwoPoints(QPointF pos1,QPointF pos2);
+    void zoomIn();
+    void zoomOut();
+    void zoom(float scale);
 protected:
     void mousePressEvent(QGraphicsSceneMouseEvent *event);
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
@@ -51,6 +55,7 @@ protected:
     void mouseDoubleClickEvent(QGraphicsSceneMouseEvent *event);
     void keyReleaseEvent(QKeyEvent *event);
     void contextMenuEvent(QGraphicsSceneContextMenuEvent *event);
+    bool event(QEvent *event);
 private:
     void add_axis();
 public slots:
@@ -145,6 +150,11 @@ private:
     //当前点击的item
     ItemBase* m_currentPressItem=NULL;
     QGraphicsItem* m_currentRightClickedItem = NULL;
+    //双指触屏缩放
+  bool  m_bIsTwoPoint = false;
+  qreal old_Distance=0.0;
+  qreal new_Distance=0.0;
+  qreal scaleFactor = 1;
 public:
     //记录拖动前后的items状态用于同时拖动多个items时 undo redo
     QMap<ItemBase*,QPointF> m_oriItemMap;

@@ -43,9 +43,10 @@ ModelBasicSettingWidget::ModelBasicSettingWidget(ModelGraphicsView *parent) :
     forkWid_->setParentWid(this);
     ui->checkBox_forkConfigure->setOriValue(false);
     //手势捕捉
-    grabGesture(Qt::PanGesture);
-    grabGesture(Qt::PinchGesture);
-    grabGesture(Qt::SwipeGesture);
+    //    grabGesture(Qt::PanGesture);
+    //    grabGesture(Qt::PinchGesture);
+    //    grabGesture(Qt::SwipeGesture);
+    setAttribute(Qt::WA_AcceptTouchEvents);
 }
 
 ModelBasicSettingWidget::~ModelBasicSettingWidget()
@@ -1144,19 +1145,26 @@ void ModelBasicSettingWidget::mousePressEvent(QMouseEvent *event)
 
 bool ModelBasicSettingWidget::event(QEvent *event)
 {
-    switch (event->type()) {
+    switch(event->type())
+    {
     case QEvent::TouchBegin:
     case QEvent::TouchUpdate:
+    case QEvent::TouchEnd:
     {
         QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
-        QList<QTouchEvent::TouchPoint> touchPoints = touchEvent->touchPoints();
-        if(touchPoints.count() == 1){
+        QList<QTouchEvent::TouchPoint> points = touchEvent->touchPoints();
+        int num = points.count();
+        qDebug()<<"points size is ----------------"<<num;
+        event->accept();
+        if(num==1)
+        {
             m_bIsOnePoint = true;
-            qDebug()<<"touchPoints.count() == 1";
         }
         else
+        {
             m_bIsOnePoint = false;
-        qDebug()<<"touchPoints.count() !!!!!!!!!!!= 1";
+        }
+        break;
     }
     default:
         break;

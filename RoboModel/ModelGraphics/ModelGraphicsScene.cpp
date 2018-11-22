@@ -47,6 +47,7 @@ ModelGraphicsScene::ModelGraphicsScene(QObject *parent):
     //添加网格坐标
     add_axis ();
     addItem (robot_model_);
+    robot_model_->setZValue(-1);
     robot_model_->setToolTip("robotModel");
 
     //按压时启动定时器，若定期器超过200ms则允许拖动，以此来判断是否为误触
@@ -54,7 +55,6 @@ ModelGraphicsScene::ModelGraphicsScene(QObject *parent):
     connect(timer, SIGNAL(timeout()), this, SLOT(slotPressElapsedEnough()));
     timer->setInterval(200);
     timer->setSingleShot(true);
-
     m_undoStack = UndoStack::InitStack();
 }
 
@@ -124,7 +124,6 @@ void ModelGraphicsScene::delete_operation()
         m_del_oriItem = m_del_newItem;
         m_del_ori_type = m_del_new_type;
         m_del_ori_pos = m_del_new_pos;
-
     }
 
 }
@@ -458,6 +457,35 @@ bool ModelGraphicsScene::isGuidenceFinished()
     return finished;
 }
 
+qreal ModelGraphicsScene::getDistanceBetweenTwoPoints(QPointF pos1, QPointF pos2)
+{
+    qreal distance = qSqrt((pos1.x()-pos2.x())*(pos1.x()-pos2.x())+(pos1.y()-pos2.y())*(pos1.y()-pos2.y()));
+    return distance;
+}
+
+void ModelGraphicsScene::zoomIn()
+{
+    if(scaleFactor>15)
+    {
+        return;
+    }
+    zoom(1.2);
+}
+
+void ModelGraphicsScene::zoomOut()
+{
+    if(scaleFactor<2.5)
+    {
+        return;
+    }
+    zoom(0.8);
+}
+
+void ModelGraphicsScene::zoom(float scale)
+{
+    scaleFactor *=scale;
+}
+
 void ModelGraphicsScene::mousePressEvent (QGraphicsSceneMouseEvent *event)
 {
     timer->start();
@@ -476,7 +504,8 @@ void ModelGraphicsScene::mousePressEvent (QGraphicsSceneMouseEvent *event)
             {
                 if(model_view()->get_viewport_cursor().shape()==Qt::ArrowCursor)
                 {
-                    add_mouse_moved_rect (event->scenePos ());
+                    if(!m_bIsTwoPoint)
+                        add_mouse_moved_rect (event->scenePos ());
                 }
             }
         }
@@ -696,6 +725,69 @@ void ModelGraphicsScene::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
         menu.exec(event->screenPos());
         QGraphicsScene::contextMenuEvent(event);
     }
+}
+
+bool ModelGraphicsScene::event(QEvent *event)
+{
+    static int count = 0;
+    switch(event->type())
+    {
+    case QEvent::TouchBegin:
+    {
+        qDebug()<<"touch begin------------------";
+    }
+        break;
+    case QEvent::TouchUpdate:
+    {
+        count++;
+        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
+        QList<QTouchEvent::TouchPoint> points = touchEvent->touchPoints();
+        int num = points.count();
+        event->accept();
+        if(num==2)
+        {
+            m_bIsTwoPoint = true;
+
+            if(count==1)
+            {
+                old_Distance = getDistanceBetweenTwoPoints(points.at(0).startScreenPos(),
+                                                           points.at(1).lastScreenPos());
+            }
+            else
+            {
+                new_Distance = getDistanceBetweenTwoPoints(points.at(0).startScreenPos(),
+                                                           points.at(1).lastScreenPos());
+                qDebug()<<"distance is -------"<<new_Distance-old_Distance;
+                qDebug()<<"scale is -------"<<scaleFactor;
+                if(new_Distance-old_Distance>4)
+                {
+                    zoomIn();
+                    old_Distance = new_Distance;
+                }
+                else if(new_Distance-old_Distance<-4)
+                {
+                    zoomOut();
+                    old_Distance = new_Distance;
+                }
+                model_view()->zoomInOut(scaleFactor);
+            }
+        }
+        else
+        {
+            m_bIsTwoPoint = false;
+        }
+    }
+        break;
+    case QEvent::TouchEnd:
+    {
+        qDebug()<<"touch TouchUpdate------------------";
+        count = 0;
+    }
+    default:
+        break;
+    }
+
+    return SCBaseGraphicsScene::event(event);
 }
 
 void ModelGraphicsScene::add_axis()

@@ -118,7 +118,7 @@ void ItemDI::mousePressEvent (QGraphicsSceneMouseEvent *event)
         setNewPos(event->pos());
     }
     if(count==1) return;
-    diContentSetting_= new DIContentSetting(I_di);
+    diContentSetting_= new DIContentSetting(I_di,data_di_.id_);
     //引导完成后更新当前item
     connect(diContentSetting_,SIGNAL(sig_finished()),this,SLOT(slot_guidconfig_finished()));
     diContentSetting_->show();

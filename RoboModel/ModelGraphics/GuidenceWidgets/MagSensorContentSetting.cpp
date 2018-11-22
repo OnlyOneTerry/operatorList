@@ -1,7 +1,7 @@
 ﻿#include "MagSensorContentSetting.h"
 #include "ui_MagSensorContentSetting.h"
 
-MagSensorContentSetting::MagSensorContentSetting(QWidget *parent) :
+MagSensorContentSetting::MagSensorContentSetting(int id, QWidget *parent) :
     BasicContentSetting(parent),
     ui(new Ui::MagSensorContentSetting),
     isValid_(false)
@@ -25,7 +25,7 @@ MagSensorContentSetting::MagSensorContentSetting(QWidget *parent) :
     }
      ui->label_direction->setText(tr("set type"));
      this->resize(330,130);
-     this->setWindowTitle(tr("MagneticSensor Guidence Setting"));
+     this->setWindowTitle(tr("MagneticSensor Guidence Setting")+QString("  id:%1").arg(id));
 }
 
 MagSensorContentSetting::~MagSensorContentSetting()

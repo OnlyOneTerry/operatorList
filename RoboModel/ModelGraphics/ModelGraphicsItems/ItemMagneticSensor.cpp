@@ -38,7 +38,7 @@ ItemMagneticSensor::ItemMagneticSensor(ModelGraphicsScene* scene,QJsonObject jso
         //向场景中拖拽方式创建
         isCreatedByLoading_ = false;
     }
-    setToolTip(QString("MagneticSensor_%1").arg(data_magnetic_.id_));
+    setToolTip(tr("MagneticSensor")+QString("_%1").arg(data_magnetic_.id_));
     setID(data_magnetic_.id_);
     update_item ();
 }
@@ -143,7 +143,7 @@ void ItemMagneticSensor::mousePressEvent (QGraphicsSceneMouseEvent *event)
         setNewPos(event->pos());
     }
     if(count == 1) return;
-    magSensorSetting_ = new MagSensorContentSetting;
+    magSensorSetting_ = new MagSensorContentSetting(data_magnetic_.id_);
     connect(magSensorSetting_,SIGNAL(sig_finished()),this,SLOT(slot_guidconfig_finished()));
     magSensorSetting_->show();
     count++;

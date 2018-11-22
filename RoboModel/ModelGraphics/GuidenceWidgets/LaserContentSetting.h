@@ -13,7 +13,7 @@ class LaserContentSetting : public BasicContentSetting
     Q_OBJECT
 
 public:
-    explicit LaserContentSetting(QWidget *parent = 0);
+    explicit LaserContentSetting(int id,QWidget *parent = 0);
     ~LaserContentSetting();
     void initWidgetData();
     ConfigureData readLaserTypeFile(const QString& filePath);

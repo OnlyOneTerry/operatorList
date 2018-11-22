@@ -28,7 +28,7 @@ ModelPropertySettingWidget::ModelPropertySettingWidget(QWidget *parent) :
     connect (ui->listWidget_layer,SIGNAL(sigListWidgetChanged()),this,SLOT(slot_current_row_changed()));
     m_unstack = UndoStack::InitStack();
     connect(ui->listWidget_layer,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(slot_moveToTop(QListWidgetItem*)));
-
+    setAttribute(Qt::WA_AcceptTouchEvents);
 }
 
 ModelPropertySettingWidget::~ModelPropertySettingWidget()
@@ -107,7 +107,7 @@ QUndoStack *ModelPropertySettingWidget::getUndoStack()
 
 void ModelPropertySettingWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    //    if(!m_bIsOnePoint) return;
+    if(!m_bIsOnePoint) return;
     QPointF mouseDelta = event->pos() - m_lastMousePos;
     int deltay = mouseDelta.y();//竖直方向
     int pos = ui->scrollArea->verticalScrollBar()->value();
@@ -121,6 +121,35 @@ void ModelPropertySettingWidget::mousePressEvent(QMouseEvent *event)
 {
     if(event->button() == Qt::LeftButton)
         m_lastMousePos = event->pos();
+}
+
+bool ModelPropertySettingWidget::event(QEvent *event)
+{
+    switch(event->type())
+    {
+    case QEvent::TouchBegin:
+    case QEvent::TouchUpdate:
+    case QEvent::TouchEnd:
+    {
+        QTouchEvent *touchEvent = static_cast<QTouchEvent *>(event);
+        QList<QTouchEvent::TouchPoint> points = touchEvent->touchPoints();
+        int num = points.count();
+        qDebug()<<"points size is ----------------"<<num;
+        event->accept();
+        if(num==1)
+        {
+            m_bIsOnePoint = true;
+        }
+        else
+        {
+            m_bIsOnePoint = false;
+        }
+        break;
+    }
+    default:
+        break;
+    }
+    return QWidget::event(event);
 }
 
 void ModelPropertySettingWidget::showTopItemWid(ItemBase *item)
@@ -171,7 +200,7 @@ void ModelPropertySettingWidget::showTopItemWid(ItemBase *item)
     default:
         break;
     }
-   update_property_widget(item->getWidgetSetting());
+    update_property_widget(item->getWidgetSetting());
 }
 
 void ModelPropertySettingWidget::update_layer(QList<ItemBase *> selected_item_list)
@@ -190,7 +219,7 @@ void ModelPropertySettingWidget::update_layer(QList<ItemBase *> selected_item_li
     int temp_count = 0;
     foreach (auto var, selected_item_list_)
     {
-        if(var->type()==I_angle_controller) continue;
+        if(var->type()==I_angle_controller||var->type()==I_robot_model) continue;
 
         QListWidgetItem *item = new QListWidgetItem(ui->listWidget_layer);
         var->layer_= temp_count;
@@ -198,12 +227,23 @@ void ModelPropertySettingWidget::update_layer(QList<ItemBase *> selected_item_li
         {
             item->setText (QString("ItemDI_%1").arg(var->getId()));
         }
-        else
+        else if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemUltrasonic")
         {
-            item->setText (QString("%1").arg (var->metaObject ()->className ())+QString("_%1").arg(var->getId()));
+            item->setText (tr("Ultrasonic")+QString("_%1").arg(var->getId()));
         }
-
-        if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemScanArea")//扫描区域Item
+        else if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemLaser")
+        {
+            item->setText (tr("Laser")+QString("_%1").arg(var->getId()));
+        }
+        else if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemCamera")
+        {
+            item->setText (tr("Camera")+QString("_%1").arg(var->getId()));
+        }
+        else if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemMagneticSensor")
+        {
+            item->setText (tr("MagneticSensor")+QString("_%1").arg(var->getId()));
+        }
+        else if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemScanArea")//扫描区域Item
         {
             if(qgraphicsitem_cast<ItemScanArea*>(var)->getParent()->type()== I_di)
             {
@@ -213,8 +253,12 @@ void ModelPropertySettingWidget::update_layer(QList<ItemBase *> selected_item_li
             {
                 item->setText(QString("UltrasonicScanArea_%1").arg(var->getId()));
             }
-
         }
+        else
+        {
+            item->setText (QString("%1").arg (var->metaObject ()->className ())+QString("_%1").arg(var->getId()));
+        }
+
         item->setData (Qt::UserRole,var->layer_);
         item->setToolTip(tr("click to top"));
         ui->listWidget_layer->addItem (item);
@@ -227,7 +271,26 @@ void ModelPropertySettingWidget::update_layer(QList<ItemBase *> selected_item_li
     {
         QListWidgetItem *item = new QListWidgetItem;
         var->layer_= temp_count;
-        item->setText (QString("%1").arg (var->metaObject ()->className()+QString("_%1").arg(var->getId())));
+        if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemUltrasonic")
+        {
+            item->setText (tr("Ultrasonic")+QString("_%1").arg(var->getId()));
+        }
+        else if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemLaser")
+        {
+            item->setText (tr("Laser")+QString("_%1").arg(var->getId()));
+        }
+        else if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemCamera")
+        {
+            item->setText (tr("Camera")+QString("_%1").arg(var->getId()));
+        }
+        else if(QString::fromLocal8Bit(var->metaObject ()->className())=="ItemMagneticSensor")
+        {
+            item->setText (tr("MagneticSensor")+QString("_%1").arg(var->getId()));
+        }
+        else
+        {
+            item->setText (QString("%1").arg (var->metaObject()->className()+QString("_%1").arg(var->getId())));
+        }
         item->setData (Qt::UserRole,var->layer_);
         m_ori_itemlist.push_back(item);
         temp_count++;
@@ -296,4 +359,5 @@ void ModelPropertySettingWidget::slot_moveToTop(QListWidgetItem *item)
     int idx = ui->listWidget_layer->item(0)->data (Qt::UserRole).toInt ();
     showTopItemWid(selected_item_list_.at(idx));
     selected_item_list_.last ()->model_scene ()->update ();
+    ui->listWidget_layer->setCurrentRow(0);//焦点设为首行
 }

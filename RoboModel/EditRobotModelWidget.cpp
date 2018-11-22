@@ -238,14 +238,6 @@ void EditRobotModelWidget::init_new()
 
 bool EditRobotModelWidget::isAllowSave(bool isGuid)
 {
-//    if(model_view_->model_scene()->get_Laserlist()->size()>0 && model_view_->model_scene()->laserForLocationNum()!=1)
-//    {
-//        QStringList list;
-//        list<<tr("Cancel");
-//        UiClass::init()->showDialog(tr("Operation failed, please make sure there is only one laser for loaction!"),tr("Information"),0,list);
-//        return false;
-//    }
-
 //    if(!model_view_->model_scene()->isAlldevsOnChassis())
 //    {
 //        QStringList list;
@@ -253,6 +245,14 @@ bool EditRobotModelWidget::isAllowSave(bool isGuid)
 //        UiClass::init()->showDialog(tr("Operation failed, please make sure all the devices is on the chassis!"),tr("Information"),0,list);
 //        return false;
 //    }
+    if(model_view_->model_scene()->get_Laserlist()->size()>0 && model_view_->model_scene()->laserForLocationNum()!=1)
+    {
+        QStringList list;
+        list<<tr("Cancel");
+        UiClass::init()->showDialog(tr("Operation failed, please make sure there is only one laser for loaction!"),tr("Information"),0,list);
+        return false;
+    }
+
      //引导创建并且没有完成引导配置
     if(!model_view_->model_scene()->isGuidenceFinished()&&isGuid)
     {

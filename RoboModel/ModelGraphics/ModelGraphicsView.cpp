@@ -120,7 +120,6 @@ void ModelGraphicsView::wheelEvent(QWheelEvent *event)
     this->verticalScrollBar()->setValue(this->verticalScrollBar()->value()+ scrollAmount.x()/2);
 }
 
-
 /*******************************************************
  * Description: 初始化界面
  *

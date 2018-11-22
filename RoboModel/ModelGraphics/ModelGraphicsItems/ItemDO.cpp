@@ -93,7 +93,7 @@ void ItemDO::mousePressEvent(QGraphicsSceneMouseEvent *event)
     }
 
     if(count==1) return;
-    doContentSetting_ = new DOContentSetting;
+    doContentSetting_ = new DOContentSetting(data_do_.id_);
     connect(doContentSetting_,SIGNAL(sig_finished()),this,SLOT(slot_guidconfig_finished()));
     doContentSetting_->show();
     count++;

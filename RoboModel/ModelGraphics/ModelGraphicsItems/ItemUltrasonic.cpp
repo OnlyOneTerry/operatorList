@@ -50,7 +50,7 @@ ItemUltrasonic::ItemUltrasonic(ModelGraphicsScene* scene,QJsonObject json):ItemB
     }
     scanArea_->setID(data_ultrasonic_.id_);
     scanArea_->setToolTip(QString("UltrasonicScanArea_%1").arg(data_ultrasonic_.id_));
-    setToolTip(QString("ItemUltrasonic_%1").arg(data_ultrasonic_.id_));
+    setToolTip(tr("Ultrasonic")+QString("_%1").arg(data_ultrasonic_.id_));
     setID(data_ultrasonic_.id_);
     update_item();
     update();
@@ -172,7 +172,7 @@ void ItemUltrasonic::mousePressEvent (QGraphicsSceneMouseEvent *event)
         setNewPos(event->pos());
     }
     if(count == 1) return;
-    ultrasoinSetting_ = new  UltrasonicContentSetting;
+    ultrasoinSetting_ = new  UltrasonicContentSetting(data_ultrasonic_.id_);
     connect(ultrasoinSetting_,SIGNAL(sig_finished()),this,SLOT(slot_guidconfig_finished()));
     ultrasoinSetting_->setModal(true);
     ultrasoinSetting_->show();

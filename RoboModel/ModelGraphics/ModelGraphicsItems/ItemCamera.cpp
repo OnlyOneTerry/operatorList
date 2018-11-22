@@ -23,7 +23,7 @@ ItemCamera::ItemCamera(ModelGraphicsScene *scene, QJsonObject json)
     {
         isCreatedByLoading_ = false;
     }
-
+    setToolTip(tr("Camera"));
 }
 
 ItemCamera::~ItemCamera()

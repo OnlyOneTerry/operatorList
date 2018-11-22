@@ -1,7 +1,7 @@
 ﻿#include "DOContentSetting.h"
 #include "ui_DOContentSetting.h"
 
-DOContentSetting::DOContentSetting(QWidget *parent) :
+DOContentSetting::DOContentSetting(int id, QWidget *parent) :
     BasicContentSetting(parent),
     ui(new Ui::DOContentSetting)
 {
@@ -25,7 +25,7 @@ DOContentSetting::DOContentSetting(QWidget *parent) :
     }
     ui->label_direction->setText(tr("set func"));
     this->resize(340,130);
-    this->setWindowTitle(tr("DO Guidence Setting"));
+    this->setWindowTitle(tr("DO Guidence Setting")+QString("  id:%1").arg(id));
 }
 
 DOContentSetting::~DOContentSetting()

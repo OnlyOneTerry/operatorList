@@ -13,7 +13,7 @@ class CrashDiContentSetting : public BasicContentSetting
     Q_OBJECT
 
 public:
-    explicit CrashDiContentSetting(QWidget *parent = 0);
+    explicit CrashDiContentSetting(int id,QWidget *parent = 0);
     ~CrashDiContentSetting();
     void initWidgetData();
     ConfigureData  read_funcConfigFile();

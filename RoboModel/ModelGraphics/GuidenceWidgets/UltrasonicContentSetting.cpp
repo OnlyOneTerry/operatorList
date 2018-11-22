@@ -1,7 +1,7 @@
 ﻿#include "UltrasonicContentSetting.h"
 #include "ui_UltrasonicContentSetting.h"
 
-UltrasonicContentSetting::UltrasonicContentSetting(QWidget *parent) :
+UltrasonicContentSetting::UltrasonicContentSetting(int id, QWidget *parent) :
     BasicContentSetting(parent),
     ui(new Ui::UltrasonicContentSetting)
 {
@@ -27,7 +27,7 @@ UltrasonicContentSetting::UltrasonicContentSetting(QWidget *parent) :
     ui->label_direction->setText(tr("set type"));
 
     this->resize(330,150);
-    this->setWindowTitle(tr("Ultrasonic Guidence Setting"));
+    this->setWindowTitle(tr("Ultrasonic Guidence Setting")+QString("  id:%1").arg(id));
 }
 
 UltrasonicContentSetting::~UltrasonicContentSetting()

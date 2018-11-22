@@ -48,12 +48,9 @@ protected:
     void mouseReleaseEvent(QMouseEvent *event);
     void mouseDoubleClickEvent(QMouseEvent *event);
     void wheelEvent(QWheelEvent *event);
-
-
     /*布局相关*/
     void keyPressEvent(QKeyEvent *event);
     void resizeEvent(QResizeEvent *event);
-
 private:
     void init_layout();
     /*面板相关*/
@@ -98,6 +95,7 @@ private:
     //拖动视图
     QPoint beforePos;
     QPoint afterPos;
+    bool m_bIsOnePoint  = false;
 private slots:
     void slot_btn_scale_1x();
     void slot_btn_scale_2x();

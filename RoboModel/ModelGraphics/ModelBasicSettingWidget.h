@@ -132,7 +132,7 @@ private:
     QUndoStack* m_undoStack;
     WidgetForkSetting* forkWid_=NULL;
     QTimer timer;
-    bool m_bIsOnePoint  = true;
+    bool m_bIsOnePoint  = false;
 };
 
 #endif // MODELBASICSETTINGWIDGET_H

@@ -13,7 +13,7 @@ class UltrasonicContentSetting : public BasicContentSetting
     Q_OBJECT
 
 public:
-    explicit UltrasonicContentSetting(QWidget *parent = 0);
+    explicit UltrasonicContentSetting(int id,QWidget *parent = 0);
     ~UltrasonicContentSetting();
      void initWigetData();
     ConfigureData readFuncTypeFile(const QString filePath);

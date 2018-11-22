@@ -13,7 +13,7 @@ class DIContentSetting : public BasicContentSetting
 
 public:
     explicit DIContentSetting(QWidget *parent = 0);
-    explicit DIContentSetting(ItemType type, QWidget *parent = 0);
+    explicit DIContentSetting(ItemType type,int id, QWidget *parent = 0);
     ~DIContentSetting();
     void initWidgetData(ItemType type);
     void initWidgetData();

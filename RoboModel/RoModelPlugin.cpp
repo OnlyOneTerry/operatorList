@@ -7,7 +7,8 @@ RoModelPlugin::RoModelPlugin()
 void RoModelPlugin::init(const QString& pluginName)
 {
     BasePluginInterface::init(pluginName);
-    this->addAction(tr("Model"));
+    if(PublicClass::init()->_fullVersion)
+        this->addAction(tr("Model"));
 }
 //----------------------GET-----------------------
 bool RoModelPlugin::getqVariantToInt(const QString&sKey,int iType,QVariant&var)
@@ -17,7 +18,7 @@ bool RoModelPlugin::getqVariantToInt(const QString&sKey,int iType,QVariant&var)
     {
         SCRobotFileModelWidget * w = Q_NULLPTR;
         if(!WidgetMap.value(sKey)){
-           w  = new SCRobotFileModelWidget();
+            w  = new SCRobotFileModelWidget();
             connect(w,SIGNAL(sigClosedWidget()),this,SLOT(slotClosedWidget()));
             QAction *ac = getActionMapKey(sKey);
             w->setProperty(M_RoPluginName,ac->data().toMap().value(M_RoPluginName));
