@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>qtquickcontrols2.conf</file>
+        <file>images/back.png</file>
+        <file>images/back1.png</file>
+        <file>images/menu.png</file>
+        <file>main.cpp</file>
+        <file>RobotContent.qml</file>
+        <file>Login.qml</file>
+        <file>mainPage.qml</file>
+    </qresource>
+</RCC>
