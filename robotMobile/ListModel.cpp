@@ -1,4 +1,5 @@
 ﻿#include "ListModel.h"
+#include <QDebug>
 
 ListModel::ListModel(QObject *parent)
     : QAbstractListModel(parent), m_RobotCount(0)
@@ -14,61 +15,95 @@ ListModel::~ListModel()
 
 QVariant ListModel::data(const QModelIndex &index, int role) const
 {
-    if(index.row() < 0 || index.row() >= m_RobotCount)
-    {
+    int row = index.row();
+    if(row <0 || row >= m_data.count()){
         return QVariant();
     }
 
-//    QDBusReply<QVariantMap> reply = Services::musicService()->call("getMusicData",index.row());
+    const Data &data = m_data[row];
+    switch (role) {
+    case  RobotTITLE:
+        return data.title();
+        break;
+    case RobotIp:
+        return data.IP();
+    default:
+        break;
+    }
 
-    QVariant retData;
-//    switch(role)
-//    {
-//    case MUSICTITLE:
-//        retData = (reply.value())["musicTitle"];
-//        break;
-//    case MUSICARTIST:
-//        retData = (reply.value())["musicArtist"];
-//        break;
-//    case MUSICALBUM:
-//        retData = (reply.value())["musicAlbum"];
-//        break;
-//    case MUSICPATH:
-//        retData = (reply.value())["musicPath"];
-//        break;
-//    case MEDIATYPE:
-//        retData = (reply.value())["mediaType"];
-//        break;
-//    default:
-//        break;
-//    }
-
-    return retData;
+    return QVariant();
 }
 
 int ListModel::rowCount(const QModelIndex &parent) const
 {
-    Q_UNUSED(parent)
-    return m_RobotCount;
+    Q_UNUSED(parent);
+    return m_data.count();
 }
 
 QHash<int, QByteArray> ListModel::roleNames() const
 {
-    QHash<int, QByteArray> role;
-//    role[MUSICTITLE]    = "MusicTitle";
-//    role[MUSICARTIST]   = "MusicArtist";
-//    role[MUSICALBUM]    = "MusicAlbum";
-//    role[MUSICPATH]     = "MusicPath";
-//    role[MEDIATYPE]     = "MediaType";
+    QHash<int, QByteArray> roles; //设置列表的角色，即所有属性字段
+    roles[RobotTITLE] = "robotTitle";
+    roles[RobotIp] = "robotIp";
+    roles[RobotContent]="robotContent";
 
-    return role;
+    return roles;
 }
 
 
 void ListModel::resetModel()
 {
     beginResetModel();
-//    QDBusReply<int> reply = Services::musicService()->call("getMusicCount");
-//    m_RobotCount = reply.value();
+
     endResetModel();
+}
+
+void ListModel::insert(int index, const Data &data)
+{
+    if(index < 0 || index > m_data.count()){
+        return;
+    }
+    emit  beginInsertRows(QModelIndex(),index,index);
+    m_data.insert(index,data);
+    emit endInsertRows();
+}
+
+void ListModel::remove(int index)
+{
+    if(index < 0 || index >= m_data.count()){
+        return;
+    }
+
+    beginRemoveRows(QModelIndex(),index,index);
+    m_data.removeAt(index);
+    endRemoveRows();
+}
+
+void ListModel::append(const QString &title, const QString &ip,const QString src)
+{
+    qDebug()<<"src is -----------"<<src;
+    insert(m_data.count(),Data(title,ip,src));
+}
+//机器人相关属性
+Data::Data(const QString &title, const QString &ip, const QString &src):
+    title_(title),
+    ip_(ip),
+    source_(src)
+{
+
+}
+
+QString Data::title() const
+{
+    return title_;
+}
+
+QString Data::IP() const
+{
+    return ip_;
+}
+
+QString Data::source() const
+{
+    return source_;
 }

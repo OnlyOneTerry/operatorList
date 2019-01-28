@@ -2,13 +2,13 @@
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.3
+import ListModel 1.0
 
 Rectangle {
     visible: true
     width: 340
     height: 480
     property alias list: listView;
-
 
     Component{
         id: customdelegate
@@ -22,7 +22,9 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     listView.currentIndex = index
-                    panelLoader.setSource(model.source);
+//                    panelLoader.setSource(model.source);
+                    console.log("0000000000000"+robotContent)
+                    panelLoader.setSource(robotContent);
                     loaderTitleLabel = title.text
                 }
             }
@@ -34,7 +36,7 @@ Rectangle {
                     height: 70
                     Text {
                         id: title
-                        text:  model.title
+                        text: robotIp  //其中一个角色roleNames（）中获得
                         font.bold: true
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.horizontalCenter: parent.horizontalCenter
@@ -51,7 +53,7 @@ Rectangle {
                     height: 30
                     Button {
                         id:sync  //同步
-                        width: parent.width/2-10
+                        width: parent.width/3-10
                         anchors.left: parent.left
                         anchors.leftMargin: 5
                         anchors.bottom: parent.bottom
@@ -65,7 +67,7 @@ Rectangle {
                     }
                     Button {
                         id:connect
-                        width: parent.width/2-10
+                        width: parent.width/3-10
                         anchors.left: sync.right
                         anchors.leftMargin: 10
                         anchors.bottom: parent.bottom
@@ -77,10 +79,23 @@ Rectangle {
                             console.log("连接机器人")
                         }
                     }
+                    Button {
+                        id:deleteItem
+                        width: parent.width/3-10
+                        anchors.left: connect.right
+                        anchors.leftMargin: 10
+                        anchors.bottom: parent.bottom
+                        anchors.topMargin: 0
+                        text: "remove"
+                        font.bold: true
+                        anchors.verticalCenter: parent.verticalCenter
+                        onClicked: {
+                           mylistModel.remove(index)
+                        }
+                    }
+
                 }
             }
-
-
 
         }
 
@@ -91,46 +106,36 @@ Rectangle {
         focus: true
         currentIndex: -1
         anchors.fill: parent
+        model: mylistModel
         delegate: customdelegate
-        //        delegate: ItemDelegate {
-        //            width: parent.width
-        //            text: model.title
-        //            highlighted: ListView.isCurrentItem
-        //            onClicked: {
-        //                listView.currentIndex = index
-        //                panelLoader.setSource(model.source);
-        //                loaderTitleLabel = listView.currentItem.text
-        //            }
-        //        }
-        //        model: customModel
-        model: ListModel {
-            ListElement {title: "BusyIndicator";source: "qrc:/Login.qml"}
-            ListElement { title: "Button";source: "qrc:/RobotContent.qml" }
-            ListElement { title: "CheckBox";source: "qrc:/RobotContent.qml" }
-            ListElement { title: "ComboBox";source: "qrc:/RobotContent.qml" }
-            ListElement { title: "DelayButton"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "Dial"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "Dialog"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "Delegates"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "Frame"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "GroupBox"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "PageIndicator"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "ProgressBar"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "RadioButton"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "RangeSlider"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "ScrollBar"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "ScrollIndicator"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "Slider"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "SpinBox"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "StackView"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "SwipeView"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "Switch"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "TabBar"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "TextArea"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "TextField"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "ToolTip"; source: "qrc:/RobotContent.qml" }
-            ListElement { title: "Tumbler"; source: "qrc:/RobotContent.qml" }
-        }
+//        model: ListModel {
+//            ListElement {title: "BusyIndicator";source: "qrc:/Login.qml"}
+//            ListElement { title: "Button";source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "CheckBox";source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "ComboBox";source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "DelayButton"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "Dial"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "Dialog"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "Delegates"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "Frame"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "GroupBox"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "PageIndicator"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "ProgressBar"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "RadioButton"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "RangeSlider"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "ScrollBar"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "ScrollIndicator"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "Slider"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "SpinBox"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "StackView"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "SwipeView"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "Switch"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "TabBar"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "TextArea"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "TextField"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "ToolTip"; source: "qrc:/RobotContent.qml" }
+//            ListElement { title: "Tumbler"; source: "qrc:/RobotContent.qml" }
+//        }
 
         ScrollIndicator.vertical: ScrollIndicator { }
     }

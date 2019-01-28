@@ -2,12 +2,14 @@
 import QtQuick.Controls 2.0
 import QtQuick.Layouts 1.3
 import QtQuick.Window 2.3
+
 ApplicationWindow {
     visible: true
     width: 340
     height: 480
     title: qsTr("robotMobile")
     property alias loaderTitleLabel :titleLabel.text  ;
+
     header: ToolBar {
 
         RowLayout {
@@ -65,18 +67,21 @@ ApplicationWindow {
     }
 
     footer: TabBar {
-            id: tabBar
-            currentIndex: 0
-            TabButton {
-                text: qsTr("First")
-            }
-            TabButton {
-                text: qsTr("Second")
-            }
-            TabButton {
-                text: qsTr("Third")
+        id: footBar
+        currentIndex: 0
+        TabButton {
+            text: qsTr("First")
+        }
+        TabButton {
+            text: qsTr("Second")
+        }
+        TabButton {
+            text: qsTr("Add")
+            onClicked: {
+                mylistModel.append("AMB150","192.168.1.72","qrc:/RobotContent.qml")
             }
         }
+    }
 
     Loader {
         id: panelLoader
