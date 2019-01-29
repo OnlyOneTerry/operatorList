@@ -4,11 +4,18 @@ import QtQuick.Layouts 1.3
 import QtQuick.Window 2.3
 
 ApplicationWindow {
+    id:mainWindow
     visible: true
     width: 340
     height: 480
+    minimumHeight: 480
+    minimumWidth: 340
     title: qsTr("robotMobile")
     property alias loaderTitleLabel :titleLabel.text  ;
+    property alias add_robot_dialog: addRobtDlg
+    property alias footBar: footBar
+
+    signal addRobot()
 
     header: ToolBar {
 
@@ -26,6 +33,7 @@ ApplicationWindow {
                 onClicked: {
                     panelLoader.setSource("qrc:/mainPage.qml")
                     titleLabel.text = "RobotMobile"
+                    footBar.visible = true
                 }
             }
 
@@ -63,6 +71,8 @@ ApplicationWindow {
                     }
                 }
             }
+
+
         }
     }
 
@@ -78,9 +88,16 @@ ApplicationWindow {
         TabButton {
             text: qsTr("Add")
             onClicked: {
-                mylistModel.append("AMB150","192.168.1.72","qrc:/RobotContent.qml")
+                //mylistModel.append("AMB150","192.168.1.72","qrc:/RobotContent.qml")
+                addRobtDlg.show()
+                addRobot()
             }
         }
+    }
+
+    AddRobotDialog{
+        id:addRobtDlg
+        visible: false
     }
 
     Loader {

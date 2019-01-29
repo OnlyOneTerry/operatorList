@@ -7,7 +7,7 @@
         <file>images/menu.png</file>
         <file>main.cpp</file>
         <file>RobotContent.qml</file>
-        <file>Login.qml</file>
         <file>mainPage.qml</file>
+        <file>AddRobotDialog.qml</file>
     </qresource>
 </RCC>

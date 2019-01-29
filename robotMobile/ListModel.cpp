@@ -27,6 +27,8 @@ QVariant ListModel::data(const QModelIndex &index, int role) const
         break;
     case RobotIp:
         return data.IP();
+    case RobotContent:
+        return data.source();
     default:
         break;
     }
@@ -92,6 +94,31 @@ Data::Data(const QString &title, const QString &ip, const QString &src):
 {
 
 }
+
+//int showObject2GetMoney(gender* object = NULL,
+//                        gender* family = NULL,
+//                        gender* anybody = NULL )
+//{
+//   bool invalid = false;
+
+//   if(object){
+//     invalid = (this&object).show();
+//   }
+//   else{
+//     invalid = (this&family).show();
+//   }
+
+//   if(invalid){
+//       return  Money();
+//     }
+//     else{
+//       if(anybody==NULL) return 0 ;
+
+//       (this&anybody).show();
+
+//       return 100;
+//     }
+//}
 
 QString Data::title() const
 {

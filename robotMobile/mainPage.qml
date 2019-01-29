@@ -9,7 +9,6 @@ Rectangle {
     width: 340
     height: 480
     property alias list: listView;
-
     Component{
         id: customdelegate
 
@@ -22,10 +21,9 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     listView.currentIndex = index
-//                    panelLoader.setSource(model.source);
-                    console.log("0000000000000"+robotContent)
                     panelLoader.setSource(robotContent);
                     loaderTitleLabel = title.text
+                    footBar.visible = false
                 }
             }
 
@@ -90,7 +88,7 @@ Rectangle {
                         font.bold: true
                         anchors.verticalCenter: parent.verticalCenter
                         onClicked: {
-                           mylistModel.remove(index)
+                            mylistModel.remove(index)
                         }
                     }
 
@@ -108,35 +106,40 @@ Rectangle {
         anchors.fill: parent
         model: mylistModel
         delegate: customdelegate
-//        model: ListModel {
-//            ListElement {title: "BusyIndicator";source: "qrc:/Login.qml"}
-//            ListElement { title: "Button";source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "CheckBox";source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "ComboBox";source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "DelayButton"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "Dial"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "Dialog"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "Delegates"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "Frame"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "GroupBox"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "PageIndicator"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "ProgressBar"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "RadioButton"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "RangeSlider"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "ScrollBar"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "ScrollIndicator"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "Slider"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "SpinBox"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "StackView"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "SwipeView"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "Switch"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "TabBar"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "TextArea"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "TextField"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "ToolTip"; source: "qrc:/RobotContent.qml" }
-//            ListElement { title: "Tumbler"; source: "qrc:/RobotContent.qml" }
-//        }
-
         ScrollIndicator.vertical: ScrollIndicator { }
     }
+
+    Rectangle {
+        id:mask
+        anchors.fill: parent
+        color: "gray"
+        opacity: 0.4
+        visible: false
+        MouseArea{
+            anchors.fill: parent
+            onClicked:{
+                mouse.accepted = false//传递到此为止？
+            }
+        }
+    }
+
+    Connections{
+        target: add_robot_dialog
+        onClose:{
+            mask.visible = false
+            console.log("diloag close---------------")
+        }
+    }
+
+    Connections{
+        target: mainWindow
+        onAddRobot:{
+            mask.visible = true
+            console.log("diloag add---------------")
+        }
+    }
 }
+
+
+
+
