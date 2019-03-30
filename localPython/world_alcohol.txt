@@ -1,0 +1,12 @@
+[['Year' 'WHO region' 'Country' 'Beverage Types' 'Display Value']
+ 
+['1986' 'Western Pacific' 'Viet Nam' 'Wine' '0']
+ 
+['1986' 'Americas' 'Uruguay' 'Other' '0.5']
+ 
+
+['1987' 'Africa' 'Malawi' 'Other' '0.75']
+ 
+['1989' 'Americas' 'Bahamas' 'Wine' '1.5']
+ 
+['1985' 'Africa' 'Malawi' 'Spirits' '0.31']]
